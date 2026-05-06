@@ -66,7 +66,7 @@ export function useNotices() {
     const today = new Date().toISOString().split('T')[0]
 
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('https://morning-lake-7f11.suil.workers.dev', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
