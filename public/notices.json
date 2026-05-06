@@ -1,6 +1,271 @@
 {
-  "updatedAt": 0,
-  "updatedDate": "",
-  "count": 0,
-  "notices": []
+  "updatedAt": 1778076775393,
+  "updatedDate": "2026-05-06",
+  "count": 13,
+  "notices": [
+    {
+      "id": "12",
+      "title": "2026년 국민성장펀드(국민참여형) 위탁운용사 선정 접수현황 - 심사 진행 중",
+      "source": "한국성장금융",
+      "institution": "한국성장금융투자운용",
+      "date": "2026-04-20",
+      "deadline": null,
+      "amount": "7,200억원",
+      "gpCount": "10개사 내외",
+      "tags": [
+        "VC",
+        "PE"
+      ],
+      "url": "https://www.kgrowth.or.kr/",
+      "summary": "총 24개 자산운용사가 제안서 제출, 현재 서류심사→현장실사→구술심사 단계 진행 중. 최종 GP 5월 중 선정 예정. 미래에셋·삼성·KB자산운용 3곳이 공모펀드 운용사로 기 선정(3월)된 데 이어 자펀드 운용사 선정 절차 진행.",
+      "isNew": true,
+      "expired": false,
+      "urgent": false,
+      "daysLeft": null
+    },
+    {
+      "id": "3",
+      "title": "국민성장펀드(간접투자분야) 정책성펀드 2026년 1차 위탁운용사 선정계획 공고",
+      "source": "한국산업은행",
+      "institution": "한국산업은행 / 신한자산운용",
+      "date": "2026-04-15",
+      "deadline": "2026-04-29",
+      "amount": "1조3,850억원 (자펀드 조성 목표 3조9,000억원)",
+      "gpCount": "11개사 내외",
+      "tags": [
+        "VC",
+        "PE"
+      ],
+      "url": "https://ngf.kdb.co.kr/",
+      "summary": "생태계전반(도전·소형·대형), 특정목표지원(코스닥·M&A·AI반도체), 프로젝트 등 3개 분야 7개 트랙으로 GP 11곳 선정 계획. 제안서 접수 마감 4월29일, 최종 선정 5월말 예정. 혁신성장·반도체생태계 등 기존 정책펀드 통합 개편한 역대 최대 규모.",
+      "isNew": true,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -8
+    },
+    {
+      "id": "4",
+      "title": "2026년 국민성장펀드(국민참여형) 위탁운용사 선정계획 공고",
+      "source": "한국성장금융",
+      "institution": "한국성장금융투자운용",
+      "date": "2026-04-10",
+      "deadline": "2026-04-17",
+      "amount": "7,200억원 (소형 1,600억+중형 3,200억+대형 2,400억)",
+      "gpCount": "10개사 내외",
+      "tags": [
+        "VC",
+        "PE"
+      ],
+      "url": "https://www.kgrowth.or.kr/notice_view.asp?page=1&search_colume=&search_text=&idx=1023&str_type=1&tab=1",
+      "summary": "소형(4곳, 1,600억원 이상)·중형(4곳, 3,200억원)·대형(2곳, 2,400억원) 분야로 총 10개사 선정 계획. 24개 자산운용사가 지원하여 경쟁 진행 중, 최종 결과 5월 중 발표 예정. 선정 GP는 선정일 후 1개월 내 펀드 설정 완료 필수.",
+      "isNew": true,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -20
+    },
+    {
+      "id": "13",
+      "title": "국민성장펀드 정책성펀드 1차 - GP 심사 진행 중 (마감 후)",
+      "source": "한국산업은행",
+      "institution": "한국산업은행 / 신한자산운용",
+      "date": "2026-04-15",
+      "deadline": "2026-04-29",
+      "amount": "1조3,850억원",
+      "gpCount": "11개사 내외",
+      "tags": [
+        "PE",
+        "VC"
+      ],
+      "url": "https://ngf.kdb.co.kr/",
+      "summary": "2026년 4월29일 제안서 접수 마감 완료, 현재 심사 진행 중. 5월말 최종 GP 11곳 선정 예정. 이후 9월 산업은행 자체 정기 출자사업 및 2차 사업 추가 공고 예정. 12월 말까지 생태계전반·특정목표지원 자펀드 결성 완료 조건.",
+      "isNew": true,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -8
+    },
+    {
+      "id": "1",
+      "title": "2026년 모태펀드(중기부 소관) 1차 정시 출자사업 - 선정 완료",
+      "source": "KVIC",
+      "institution": "한국벤처투자(KVIC) / 중소벤처기업부",
+      "date": "2026-01-28",
+      "deadline": "2026-02-26",
+      "amount": "8,750억원 (자펀드 조성 목표 1조7,548억원)",
+      "gpCount": "60개사",
+      "tags": [
+        "VC",
+        "루키",
+        "모태펀드"
+      ],
+      "url": "https://www.kvic.or.kr/notice/notice1_1",
+      "summary": "2026년 1차 정시 출자사업으로 총 224개 운용사가 지원해 60곳이 최종 선정됨(4월29일 발표). 넥스트유니콘 프로젝트(AI융합·딥테크·스케일업), 창업초기 루키(10개사), 재도전, 세컨더리, 가업승계M&A, 임팩트, 여성기업 등 13개 분야 운영. 선정사는 발표일 기준 3개월 내(7월) 조합 결성 완료 필수.",
+      "isNew": false,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -70
+    },
+    {
+      "id": "2",
+      "title": "2026년 모태펀드(문화·영화·해양) 1차 정시 출자사업",
+      "source": "KVIC",
+      "institution": "한국벤처투자(KVIC) / 문화체육관광부·해양수산부",
+      "date": "2026-01-23",
+      "deadline": "2026-02-26",
+      "amount": "5,140억원 (자펀드 조성 목표 7,533억원)",
+      "gpCount": "다수 (분야별 선정)",
+      "tags": [
+        "VC",
+        "모태펀드"
+      ],
+      "url": "https://www.kvic.or.kr/notice/notice1_1",
+      "summary": "문화콘텐츠 6,500억원(지식재산·수출 등), 영화산업 818억원, 해양 215억원 등 총 7,533억원 자펀드 조성 목표. 제안서 접수 2월19일~26일(온라인), 최종 운용사 4월 선정 예정. 역대 최대 규모로 전년 대비 약 22% 증액.",
+      "isNew": false,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -70
+    },
+    {
+      "id": "5",
+      "title": "2026년도 군인공제회 국내 PE 공동투자펀드 위탁운용사 선정 공고",
+      "source": "군인공제회",
+      "institution": "군인공제회",
+      "date": "2026-03-20",
+      "deadline": "2026-04-03",
+      "amount": "2,000억원 내외",
+      "gpCount": "1개사",
+      "tags": [
+        "PE",
+        "공제회"
+      ],
+      "url": "https://m.mmaa.or.kr/board/view.action?menuid=248&item_id=4065",
+      "summary": "군인공제회 기존 투자 운용사 또는 현재 출자 중인 블라인드펀드 GP 제안 기반의 공동투자펀드 방식. 블라인드 운용, 만기 10년 이내(최대 2년 연장), 약정액의 70% 이상 PE 투자 의무. 서류 접수 마감(4월3일) 후 쇼트리스트 3곳 선별, 구술심사 거쳐 5월말 최종 확정 예정.",
+      "isNew": false,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -34
+    },
+    {
+      "id": "6",
+      "title": "경찰공제회 PE 블라인드펀드 위탁운용사 선정 공고 (10년 만 재개)",
+      "source": "경찰공제회",
+      "institution": "경찰공제회",
+      "date": "2026-01-13",
+      "deadline": "2026-01-26",
+      "amount": "1,800억원 (PE 3곳×400억, VC 3곳×200억)",
+      "gpCount": "6개사 (PE 3, VC 3)",
+      "tags": [
+        "PE",
+        "VC",
+        "공제회"
+      ],
+      "url": "https://www.poca.or.kr/",
+      "summary": "10년 만에 공모 방식 출자 재개. PE 3곳(각 400억), VC 3곳(각 200억) 선정. 지원자격: AUM PE 5,000억 이상, VC 3,000억 이상. 1차 정량+2차 정성평가(PT)+실사 후 3월 중 최종 GP 선정. 최종 선정사: 제네시스PE·BNW인베스트먼트·케이스톤파트너스(각 400억).",
+      "isNew": false,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -101
+    },
+    {
+      "id": "7",
+      "title": "2026년 모태펀드 1차 정시 출자사업 - 지역성장펀드 (비수도권)",
+      "source": "KVIC",
+      "institution": "한국벤처투자(KVIC) / 중소벤처기업부",
+      "date": "2026-01-28",
+      "deadline": "2026-02-26",
+      "amount": "4,000억원 (자펀드 조성 목표 7,000억원)",
+      "gpCount": "다수",
+      "tags": [
+        "VC",
+        "지역",
+        "모태펀드"
+      ],
+      "url": "https://www.kvic.or.kr/notice/notice1_1",
+      "summary": "비수도권 중심 지역 주도 투자 확대, 역대 최대 규모 출자. 중기부 일반 모태 자펀드에 지역투자 20% 의무 부여. 비수도권·초기투자 실적 우수 운용사 우대 선정 및 추가 성과보수 지급률 확대.",
+      "isNew": false,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -70
+    },
+    {
+      "id": "8",
+      "title": "행정공제회 2025년 국내 PE 블라인드 운용사 선정 공고 (2019년 이후 6년 만 재개)",
+      "source": "행정공제회",
+      "institution": "행정공제회(POBA)",
+      "date": "2025-11-22",
+      "deadline": "2025-11-26",
+      "amount": "2,000억원 (바이아웃·그로쓰 4곳 + 공동투자 1곳 별도)",
+      "gpCount": "5개사 내외",
+      "tags": [
+        "PE",
+        "공제회"
+      ],
+      "url": "https://poba.or.kr/",
+      "summary": "2019년 이후 6년 만에 공모 방식 PE 블라인드 출자 재개. 바이아웃·그로쓰 분야 4곳에 총 2,000억원 출자, 펀드 결성 최소 2,000억원 이상 조건. 공동투자 GP 1곳 추가 선정(1,500억원 한도 별도 프로그램). 27개 VC 운용사 등이 지원, 선정 결과는 2025년 말~2026년 초 발표.",
+      "isNew": false,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -162
+    },
+    {
+      "id": "9",
+      "title": "한국교직원공제회 2025년 VC 블라인드펀드 위탁운용사 선정 공고",
+      "source": "교직원공제회",
+      "institution": "한국교직원공제회(KTCU)",
+      "date": "2025-05-09",
+      "deadline": "2025-05-26",
+      "amount": "1,520억원",
+      "gpCount": "10개사 내외",
+      "tags": [
+        "VC",
+        "공제회"
+      ],
+      "url": "https://www.ktcu.or.kr/",
+      "summary": "소형·중형·대형 3개 분야로 VC 블라인드펀드 위탁운용사 모집. 접수 마감 5월26일, 6월 1차 심사, 7월 2차 심사 후 최종 선정 결과 개별 통보. 2026년도 PEF 블라인드 출자사업은 증시 호황 등을 이유로 미실시 예정(2026.04 기준).",
+      "isNew": false,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -346
+    },
+    {
+      "id": "10",
+      "title": "군인공제회 2025년 PE·VC 블라인드펀드 위탁운용사 선정 (4,800억원) - 선정 완료",
+      "source": "군인공제회",
+      "institution": "군인공제회",
+      "date": "2025-08-08",
+      "deadline": "2025-08-25",
+      "amount": "4,800억원 (PE 3,400억+VC 1,400억)",
+      "gpCount": "20개사 (PE 10, VC 10)",
+      "tags": [
+        "PE",
+        "VC",
+        "공제회"
+      ],
+      "url": "https://m.mmaa.or.kr/",
+      "summary": "PE 10곳(3,400억)·VC 10곳(1,400억) 총 20개사 선정(2025년 11월6일 발표). PE: 다올PE·더함파트너스·릴슨PE·BNW인베·H&Q·우리PE·케이스톤·KCGI·KY PE·하일랜드-산은 등. VC: DSC·IMM·우리벤처·위벤처스·유안타·인터베스트·케이넷·K2인베·코오롱·프리미어파트너스.",
+      "isNew": false,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -255
+    },
+    {
+      "id": "11",
+      "title": "2026년 모태펀드 1차 - 차세대 유니콘 육성(넥스트유니콘 프로젝트) 스타트업·스케일업 분야",
+      "source": "KVIC",
+      "institution": "한국벤처투자(KVIC) / 중소벤처기업부",
+      "date": "2026-01-28",
+      "deadline": "2026-02-26",
+      "amount": "5,500억원 (자펀드 조성 목표 1조3,000억원)",
+      "gpCount": "AI융합 6곳·딥테크 6곳·스케일업 3곳 등",
+      "tags": [
+        "VC",
+        "모태펀드"
+      ],
+      "url": "https://www.kvic.or.kr/notice/notice1_1",
+      "summary": "AI·딥테크 중심의 성장단계별 집중 투자, 스타트업(AI융합·딥테크)·스케일업(AI융합·딥테크)·유니콘·해외진출 펀드 신설. 전년 대비 83% 증가(3,000억→5,500억). 최종 선정 결과 4월29일 발표, 주목적 투자처는 AI·반도체·바이오·모빌리티·에너지·로봇·원전·양자기술.",
+      "isNew": false,
+      "expired": true,
+      "urgent": false,
+      "daysLeft": -70
+    }
+  ]
 }
