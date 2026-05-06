@@ -61,7 +61,14 @@ export default function NoticeCard({ notice }) {
                 borderRadius: 20, padding: '1px 7px', letterSpacing: '0.5px',
               }}>NEW</span>
             )}
-            {notice.urgent && (
+            {notice.expired && (
+              <span style={{
+                fontSize: 10, fontWeight: 700,
+                background: 'rgba(255,255,255,0.08)', color: 'var(--text3)',
+                borderRadius: 20, padding: '1px 7px', letterSpacing: '0.5px',
+              }}>마감완료</span>
+            )}
+            {!notice.expired && notice.urgent && (
               <span style={{
                 fontSize: 10, fontWeight: 700,
                 background: '#ff3b3b22', color: '#ff3b3b',

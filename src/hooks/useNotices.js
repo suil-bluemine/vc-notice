@@ -95,9 +95,14 @@ export function useNotices() {
       const now = Date.now()
       const sevenDays = now + 7 * 24 * 60 * 60 * 1000
       const enriched = JSON.parse(match[0]).map(n => ({
-        ...n,
-        urgent: n.deadline ? new Date(n.deadline).getTime() <= sevenDays : false,
+          ...n,
+        expied: n.deadline ? new Date(n.deadline).getTime() < now : false,
+        urgent: n.deadline ? (new Date(n.deadline).getTime() >= now && new Date(n.deadline).getTime() <= sevenDays) : false,
         daysLeft: n.deadline ? Math.ceil((new Date(n.deadline).getTime() - now) / 86400000) : null,
+      })).sort((a, b) => {
+        if (a.expired !== b.expired) return a.expired ? 1 : -1
+        if (a.isNew !== b.isNew) return b.isNew ? 1 : -1
+        return 0
       }))
 
       setNotices(enriched)
@@ -112,5 +117,6 @@ export function useNotices() {
 
   return { notices, loading, error, lastFetched, fetch_, apiKey, saveApiKey, loadCache }
 }
+
 
 
