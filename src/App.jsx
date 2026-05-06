@@ -17,7 +17,10 @@ export default function App() {
 
   const filtered = useMemo(() => {
     let list = notices.filter(n => {
-      if (source !== '전체' && n.source !== source) return false
+      if (source !== '전체') {
+        const catSources = {'정책기관':['KVIC','KVCA','KGF','KDB','SMES','KODIT','KIBO','KBIZ'],'공제회':['공제회','NEWS'],'지자체':['VCS','지자체'],'기타':['기타']}[source] || []
+        if (!catSources.includes(n.source)) return false
+      }
       if (tag !== '전체' && !(n.tags || []).includes(tag)) return false
       return true
     })
@@ -107,3 +110,4 @@ export default function App() {
     </div>
   )
 }
+

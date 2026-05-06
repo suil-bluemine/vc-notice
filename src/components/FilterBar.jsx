@@ -1,11 +1,14 @@
 import React from 'react'
 
-const SOURCES = ['전체', 'KVIC', 'KVCA', 'KGF', 'VCS', 'KBIZ', 'NEWS']
-const TAGS = ['전체', 'VC', 'PE', '루키', '지역', '공제회', '모태펀드']
-
-const sourceLabel = {
-  KVIC: 'KVIC', KVCA: 'KVCA', KGF: '성장금융', VCS: '지자체', KBIZ: '노란우산', NEWS: 'IB뉴스'
+const CATEGORIES = {
+  '전체': null,
+  '정책기관': ['KVIC', 'KVCA', 'KGF', 'KDB', 'SMES', 'KODIT', 'KIBO', 'KBIZ'],
+  '공제회': ['공제회', 'NEWS'],
+  '지자체': ['VCS', '지자체'],
+  '기타': ['기타'],
 }
+
+const TAGS = ['전체', 'VC', 'PE', '루키', '지역', '공제회', '모태펀드']
 
 export default function FilterBar({ source, setSource, tag, setTag, sort, setSort, total, filtered }) {
   const btnStyle = (active) => ({
@@ -13,7 +16,7 @@ export default function FilterBar({ source, setSource, tag, setTag, sort, setSor
     border: `1px solid ${active ? 'rgba(0,212,170,0.4)' : 'var(--line)'}`,
     color: active ? '#00d4aa' : 'var(--text2)',
     borderRadius: 20,
-    padding: '4px 12px',
+    padding: '4px 14px',
     fontSize: 12,
     cursor: 'pointer',
     fontFamily: 'var(--sans)',
@@ -21,13 +24,23 @@ export default function FilterBar({ source, setSource, tag, setTag, sort, setSor
     whiteSpace: 'nowrap',
   })
 
+  const handleSource = (cat) => {
+    setSource(cat)
+  }
+
+  const matchSource = (notice, cat) => {
+    if (cat === '전체') return true
+    const sources = CATEGORIES[cat] || []
+    return sources.includes(notice.source)
+  }
+
   return (
     <div style={{ padding: '1rem 2rem', borderBottom: '1px solid var(--line)', display: 'flex', flexDirection: 'column', gap: 10 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 11, color: 'var(--text3)', fontFamily: 'var(--mono)', minWidth: 36 }}>소스</span>
-        {SOURCES.map(s => (
-          <button key={s} style={btnStyle(source === s)} onClick={() => setSource(s)}>
-            {s === '전체' ? '전체' : (sourceLabel[s] || s)}
+        <span style={{ fontSize: 11, color: 'var(--text3)', fontFamily: 'var(--mono)', minWidth: 36 }}>카테고리</span>
+        {Object.keys(CATEGORIES).map(cat => (
+          <button key={cat} style={btnStyle(source === cat)} onClick={() => handleSource(cat)}>
+            {cat}
           </button>
         ))}
       </div>
@@ -58,3 +71,5 @@ export default function FilterBar({ source, setSource, tag, setTag, sort, setSor
     </div>
   )
 }
+
+export { CATEGORIES }
