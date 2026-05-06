@@ -42,7 +42,7 @@ export default function NoticeCard({ notice }) {
       onMouseLeave={e => { e.currentTarget.style.borderColor = urgentBorder; e.currentTarget.style.borderLeftColor = notice.isNew ? newAccent : srcColor }}
     >
       {/* Top row */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, justifyContent: 'space-between', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, flexWrap: 'wrap' }}>
             <span style={{
@@ -52,7 +52,7 @@ export default function NoticeCard({ notice }) {
               borderRadius: 20, padding: '2px 8px',
             }}>{srcName}</span>
             {notice.institution && notice.institution !== srcName && (
-              <span style={{ fontSize: 12, color: 'var(--text2)' }}>{notice.institution}</span>
+              <span style={{ fontSize: 12, color: 'var(--text2)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 120 }}>{notice.institution}</span>
             )}
             {notice.isNew && (
               <span style={{
@@ -89,7 +89,7 @@ export default function NoticeCard({ notice }) {
         </div>
 
         {/* Right meta */}
-        <div style={{ textAlign: 'right', flexShrink: 0, fontSize: 12, color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
+        <div style={{ textAlign: 'right', flexShrink: 0, fontSize: 12, color: 'var(--text3)', fontFamily: 'var(--mono)', minWidth: 0, wordBreak: 'keep-all' }}>
           {notice.amount && (
             <div style={{ fontSize: 13, fontWeight: 500, color: '#00d4aa', marginBottom: 2 }}>{notice.amount}</div>
           )}
