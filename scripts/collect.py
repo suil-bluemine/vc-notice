@@ -67,7 +67,7 @@ def call_api(api_key: str) -> list:
     text = ''.join(b.get('text', '') for b in body.get('content', []) if b.get('type') == 'text')
     print(f"[DEBUG] Response text length: {len(text)}")
 
-start = text.find('[')
+    start = text.find('[')
     end = text.rfind(']') + 1
     if start == -1 or end == 0:
         print("[WARN] No JSON array found in response")
@@ -147,3 +147,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
