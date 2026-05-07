@@ -100,12 +100,24 @@ def call_api(api_key: str) -> list:
         expired = deadline_ts is not None and deadline_ts < NOW_TS
         urgent = deadline_ts is not None and not expired and deadline_ts <= NOW_TS + SEVEN_DAYS_MS
         days_left = round((deadline_ts - NOW_TS) / 86400000) if deadline_ts else None
+
+        # isNew: 공고일 기준 7일 이내 (AI 판단 무시하고 코드에서 강제 적용)
+        date_str = n.get('date')
+        date_ts = None
+        if date_str:
+            try:
+                date_ts = int(datetime.strptime(date_str, '%Y-%m-%d').replace(tzinfo=KST).timestamp() * 1000)
+            except Exception:
+                pass
+        is_new = date_ts is not None and (NOW_TS - date_ts) <= SEVEN_DAYS_MS and not expired
+
         enriched.append({
             **n,
             'id': str(i + 1),
             'expired': expired,
             'urgent': urgent,
             'daysLeft': days_left,
+            'isNew': is_new,
         })
 
     # 정렬: 마감완료 → 하단, 신규 → 상단
