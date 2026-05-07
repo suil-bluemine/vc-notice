@@ -30,7 +30,9 @@ function enrichNotices(raw) {
     const expired = deadlineTs !== null && deadlineTs < now
     const urgent = deadlineTs !== null && !expired && deadlineTs <= sevenDays
     const daysLeft = deadlineTs !== null ? Math.ceil((deadlineTs - now) / 86400000) : null
-    return { ...n, id: String(i + 1), expired, urgent, daysLeft }
+    const dateTs = n.date ? new Date(n.date).getTime() : null
+    const isNew = dateTs !== null && (now - dateTs) <= sevenDays
+    return { ...n, id: String(i + 1), expired, urgent, daysLeft, isNew }
   }).sort((a, b) => {
     if (a.expired !== b.expired) return a.expired ? 1 : -1
     if (a.isNew !== b.isNew) return b.isNew ? 1 : -1
