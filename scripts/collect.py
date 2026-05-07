@@ -67,13 +67,27 @@ def call_api(api_key: str) -> list:
     text = ''.join(b.get('text', '') for b in body.get('content', []) if b.get('type') == 'text')
     print(f"[DEBUG] Response text length: {len(text)}")
 
-    start = text.find('[')
+start = text.find('[')
     end = text.rfind(']') + 1
     if start == -1 or end == 0:
         print("[WARN] No JSON array found in response")
         return []
 
-    raw = json.loads(text[start:end])
+    json_str = text[start:end]
+    # 중첩 JSON 배열이 있을 경우 첫 번째 완전한 배열만 추출
+    depth = 0
+    real_end = start
+    for i, ch in enumerate(json_str):
+        if ch == '[':
+            depth += 1
+        elif ch == ']':
+            depth -= 1
+            if depth == 0:
+                real_end = start + i + 1
+                break
+
+    raw = json.loads(json_str[:real_end - start])
+
     enriched = []
     for i, n in enumerate(raw):
         deadline = n.get('deadline')
