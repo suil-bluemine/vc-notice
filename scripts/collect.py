@@ -3,131 +3,53 @@ import json
 import os
 import sys
 import urllib.request
-import urllib.parse
 from datetime import datetime, timezone, timedelta
 
 KST = timezone(timedelta(hours=9))
 TODAY = datetime.now(KST).strftime('%Y-%m-%d')
 NOW_TS = int(datetime.now(KST).timestamp() * 1000)
 SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000
+THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000
 
 ANTHROPIC_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
-NAVER_ID = os.environ.get('NAVER_CLIENT_ID', '')
-NAVER_SECRET = os.environ.get('NAVER_CLIENT_SECRET', '')
 
-NAVER_KEYWORDS = [
-    '벤처펀드 출자사업 공고',
-    'VC 블라인드펀드 GP 선정',
-    '모태펀드 출자사업',
-    '공제회 벤처펀드 출자',
-    '지자체 벤처펀드 위탁운용사',
-    '서울 벤처펀드 출자사업',
-    '경기 벤처펀드 출자사업',
-]
+PROMPT = f"""오늘({TODAY}) 기준으로 한국 VC/PE 출자사업 공고를 웹에서 검색해줘.
 
-ANTHROPIC_PROMPT = f"""오늘({TODAY}) 기준으로 한국 VC/PE 출자사업 공고를 웹에서 실시간 검색해서 수집해줘.
+규칙:
+1. 오늘 기준 접수 중이거나 최근 30일 이내 공고된 것만
+2. 마감이 지난 공고 제외
+3. 뉴스 기사 제외 - 반드시 기관 공식 공고만
+4. date(공고일), deadline(마감일) 정확히 찾아줘. 모르면 null
 
-중요 규칙:
-1. 반드시 {TODAY} 기준으로 **접수 중이거나 최근 30일 이내 공고된 것만** 포함해줘
-2. 마감이 이미 지난 공고는 제외해줘
-3. date는 실제 공고일, deadline은 실제 접수 마감일을 정확히 찾아줘
-4. 확인되지 않는 날짜는 null로 반환해줘 (추정값 금지)
+검색 대상 기관 사이트:
+- kvic.or.kr (KVIC 한국벤처투자)
+- kvca.or.kr (KVCA 벤처캐피탈협회)
+- kgrowth.or.kr (한국성장금융)
+- vcs.go.kr (벤처투자종합포털)
+- kbiz.or.kr (노란우산)
+- kdb.co.kr (산업은행)
+- smes.go.kr (중진공)
+- kodit.or.kr (신보)
+- kibo.or.kr (기보)
+- poca.or.kr, kohla.kr, ktcu.or.kr, lacts.or.kr, acgc.or.kr (공제회)
+- gbsa.or.kr, sba.seoul.kr (지자체)
 
-수집 대상:
-1. KVIC(한국벤처투자) - kvic.or.kr
-2. KVCA(한국벤처캐피탈협회) - kvca.or.kr
-3. 한국성장금융 - kgrowth.or.kr
-4. 벤처투자종합포털 - vcs.go.kr
-5. 중소기업중앙회 - kbiz.or.kr
-6. 한국산업은행 - kdb.co.kr
-7. 중소기업진흥공단 - smes.go.kr
-8. 신용보증기금 - kodit.or.kr
-9. 기술보증기금 - kibo.or.kr
-10. 경찰/군인/교직원/지방행정/행정 공제회
-11. 경기도경제과학진흥원, 서울산업진흥원 등 지자체
+JSON 배열만 반환. 마크다운 없이:
+[{{"id":"1","title":"공고제목","source":"KVIC","institution":"기관명","date":"YYYY-MM-DD","deadline":"YYYY-MM-DD","amount":"500억원","gpCount":"3개사","tags":["VC"],"url":"https://...","summary":"요약3줄","isNew":true}}]
 
-반드시 아래 JSON 배열만 반환. 마크다운 없이:
-[{{"id":"1","title":"공고제목","source":"KVIC","institution":"기관명","date":"YYYY-MM-DD","deadline":"YYYY-MM-DD or null","amount":"500억원 or null","gpCount":"3개사 or null","tags":["VC"],"url":"https://... or null","summary":"요약3줄","isNew":true}}]
-
+source 값: KVIC, KVCA, KGF, VCS, KBIZ, KDB, SMES, KODIT, KIBO, 공제회, 지자체, 기타
 공고 없으면 [] 반환."""
 
 
-def naver_news_search():
-    """네이버 뉴스 API로 출자사업 공고 수집"""
-    if not NAVER_ID or not NAVER_SECRET:
-        print("[WARN] Naver API key not set, skipping")
-        return []
-
-    results = []
-    seen_titles = set()
-
-    for keyword in NAVER_KEYWORDS:
-        try:
-            query = urllib.parse.urlencode({'query': keyword, 'display': 10, 'sort': 'date'})
-            url = f'https://openapi.naver.com/v1/search/news.json?{query}'
-            req = urllib.request.Request(url, headers={
-                'X-Naver-Client-Id': NAVER_ID,
-                'X-Naver-Client-Secret': NAVER_SECRET,
-            })
-            with urllib.request.urlopen(req, timeout=10) as res:
-                data = json.loads(res.read().decode('utf-8'))
-
-            for item in data.get('items', []):
-                title = item.get('title', '').replace('<b>', '').replace('</b>', '').replace('&amp;', '&').replace('&quot;', '"')
-                link = item.get('link', '')
-                pub_date = item.get('pubDate', '')
-                description = item.get('description', '').replace('<b>', '').replace('</b>', '')
-
-                # 출자사업 관련 키워드 필터
-                keywords_check = ['출자', '펀드', 'GP', '위탁운용', '블라인드', '공모']
-                if not any(k in title for k in keywords_check):
-                    continue
-
-                if title in seen_titles:
-                    continue
-                seen_titles.add(title)
-
-                # 날짜 파싱 (RFC 822 형식)
-                date_str = None
-                try:
-                    dt = datetime.strptime(pub_date, '%a, %d %b %Y %H:%M:%S %z')
-                    date_str = dt.astimezone(KST).strftime('%Y-%m-%d')
-                except Exception:
-                    pass
-
-                results.append({
-                    'title': title,
-                    'source': 'NEWS',
-                    'institution': '뉴스감지',
-                    'date': date_str,
-                    'deadline': None,
-                    'amount': None,
-                    'gpCount': None,
-                    'tags': ['VC'],
-                    'url': link,
-                    'summary': description,
-                    'isNew': True,
-                })
-
-            print(f"[INFO] Naver '{keyword}': {len(data.get('items', []))}건")
-        except Exception as e:
-            print(f"[WARN] Naver search failed for '{keyword}': {e}")
-
-    print(f"[INFO] Naver total: {len(results)}건")
-    return results
-
-
 def anthropic_search():
-    """Anthropic Claude + Web Search로 공고 수집"""
-    url = 'https://api.anthropic.com/v1/messages'
     payload = {
-        'model': 'claude-sonnet-4-6',
-        'max_tokens': 8000,
+        'model': 'claude-haiku-4-5',
+        'max_tokens': 4000,
         'tools': [{'type': 'web_search_20250305', 'name': 'web_search'}],
-        'messages': [{'role': 'user', 'content': ANTHROPIC_PROMPT}]
+        'messages': [{'role': 'user', 'content': PROMPT}]
     }
     req = urllib.request.Request(
-        url,
+        'https://api.anthropic.com/v1/messages',
         data=json.dumps(payload).encode('utf-8'),
         headers={
             'Content-Type': 'application/json',
@@ -140,7 +62,7 @@ def anthropic_search():
         body = json.loads(res.read().decode('utf-8'))
 
     text = ''.join(b.get('text', '') for b in body.get('content', []) if b.get('type') == 'text')
-    print(f"[DEBUG] Anthropic response length: {len(text)}")
+    print(f"[DEBUG] Response length: {len(text)}")
 
     start = text.find('[')
     if start == -1:
@@ -148,8 +70,7 @@ def anthropic_search():
 
     depth, real_end = 0, start
     for i, ch in enumerate(text[start:]):
-        if ch == '[':
-            depth += 1
+        if ch == '[': depth += 1
         elif ch == ']':
             depth -= 1
             if depth == 0:
@@ -164,9 +85,8 @@ def anthropic_search():
 def enrich(notices):
     seen = set()
     enriched = []
-    thirty_days_ms = 30 * 24 * 60 * 60 * 1000  # 30일
 
-    for i, n in enumerate(notices):
+    for n in notices:
         title = n.get('title', '')
         if title in seen:
             continue
@@ -189,29 +109,27 @@ def enrich(notices):
                 pass
 
         expired = deadline_ts is not None and deadline_ts < NOW_TS
-        
-        # 마감일 지난 것 제외
         if expired:
             continue
-        
-        # 공고일 기준 30일 초과된 것 제외 (deadline 없는 경우)
-        if deadline_ts is None and date_ts is not None and (NOW_TS - date_ts) > thirty_days_ms:
+
+        # deadline 없고 공고일 30일 초과 제외
+        if deadline_ts is None and date_ts is not None and (NOW_TS - date_ts) > THIRTY_DAYS_MS:
             continue
 
-        urgent = deadline_ts is not None and not expired and deadline_ts <= NOW_TS + SEVEN_DAYS_MS
+        urgent = deadline_ts is not None and deadline_ts <= NOW_TS + SEVEN_DAYS_MS
         days_left = round((deadline_ts - NOW_TS) / 86400000) if deadline_ts else None
-        is_new = date_ts is not None and (NOW_TS - date_ts) <= SEVEN_DAYS_MS and not expired
+        is_new = date_ts is not None and (NOW_TS - date_ts) <= SEVEN_DAYS_MS
 
         enriched.append({
             **n,
             'id': str(len(enriched) + 1),
-            'expired': expired,
+            'expired': False,
             'urgent': urgent,
             'daysLeft': days_left,
             'isNew': is_new,
         })
 
-    enriched.sort(key=lambda x: (x['expired'], not x.get('isNew', False)))
+    enriched.sort(key=lambda x: not x.get('isNew', False))
     return enriched
 
 
@@ -222,37 +140,26 @@ def main():
 
     print(f"[INFO] Collecting notices for {TODAY}...")
 
-    all_notices = []
-
-    # 1. 네이버 뉴스 검색
     try:
-        naver_results = naver_news_search()
-        all_notices.extend(naver_results)
+        notices = anthropic_search()
     except Exception as e:
-        print(f"[WARN] Naver search error: {e}")
-
-    # 2. Anthropic Web Search
-    try:
-        anthropic_results = anthropic_search()
-        all_notices.extend(anthropic_results)
-    except Exception as e:
-        print(f"[ERROR] Anthropic search failed: {e}")
+        print(f"[ERROR] API call failed: {e}")
         if os.path.exists('public/notices.json'):
             print("[INFO] Keeping existing notices.json")
             sys.exit(0)
+        notices = []
 
-    enriched = enrich(all_notices)
-    print(f"[INFO] Total after dedup: {len(enriched)}건")
+    enriched = enrich(notices)
+    print(f"[INFO] Total: {len(enriched)}건")
 
     os.makedirs('public', exist_ok=True)
-    output = {
-        'updatedAt': NOW_TS,
-        'updatedDate': TODAY,
-        'count': len(enriched),
-        'notices': enriched,
-    }
     with open('public/notices.json', 'w', encoding='utf-8') as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+        json.dump({
+            'updatedAt': NOW_TS,
+            'updatedDate': TODAY,
+            'count': len(enriched),
+            'notices': enriched,
+        }, f, ensure_ascii=False, indent=2)
 
     print(f"[INFO] Saved {len(enriched)} notices")
 
