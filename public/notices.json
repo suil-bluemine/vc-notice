@@ -1,31 +1,6 @@
 {
-  "updatedAt": 1778668079509,
+  "updatedAt": 1778668780823,
   "updatedDate": "2026-05-13",
-  "count": 1,
-  "notices": [
-    {
-      "id": "1",
-      "title": "국민성장펀드(간접투자분야) 정책성펀드 2026년 1차 출자사업 공고",
-      "source": "KDB",
-      "institution": "한국산업은행 / 신한자산운용",
-      "date": "2026-04-15",
-      "deadline": null,
-      "amount": "총 7조4,500억원 규모(1차)",
-      "gpCount": "다수(81곳 지원)",
-      "tags": [
-        "PE",
-        "VC",
-        "국민성장펀드",
-        "첨단전략산업",
-        "반도체",
-        "AI"
-      ],
-      "url": "https://ngf.kdb.co.kr/",
-      "summary": "한국산업은행과 신한자산운용이 2026.04.15 공고한 국민성장펀드 간접투자분야 정책성 펀드 1차 출자사업. 혁신성장펀드, 반도체생태계펀드 등 포함. 코스닥 리그에만 PEF 운용사 6곳 지원. 접수는 이미 마감(5월 초 추정), 현재 심사 진행 중.",
-      "isNew": false,
-      "expired": false,
-      "urgent": false,
-      "daysLeft": null
-    }
-  ]
+  "count": 0,
+  "notices": []
 }
