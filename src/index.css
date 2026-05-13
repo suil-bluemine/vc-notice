@@ -47,3 +47,5 @@ input, select {
   font-family: var(--sans);
   outline: none;
 }
+
+body { overflow-x: hidden; }
